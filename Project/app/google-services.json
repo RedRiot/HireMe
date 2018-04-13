@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "156960326860",
+    "firebase_url": "https://hireme-58f4b.firebaseio.com",
+    "project_id": "hireme-58f4b",
+    "storage_bucket": "hireme-58f4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156960326860:android:5e3571dbc4ae35d6",
+        "android_client_info": {
+          "package_name": "com.example.tung.hireme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156960326860-qjqbmjaf1j5lghc4l46vuhvlpbrpmmlm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tung.hireme",
+            "certificate_hash": "d4797c7f099461a2e992ddcf45d38a738d5d586a"
+          }
+        },
+        {
+          "client_id": "156960326860-4io70o97p3dhjs3b52m8umt7ik9a8kej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL8w7HrOvoYXbwXAn-3vY8vJh9rBNrzII"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156960326860-4io70o97p3dhjs3b52m8umt7ik9a8kej.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
