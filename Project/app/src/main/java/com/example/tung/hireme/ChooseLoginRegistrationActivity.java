@@ -20,7 +20,7 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChooseLoginRegistrationActivity.this, MainActivity.class);
+                Intent intent = new Intent(ChooseLoginRegistrationActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
                 return;
@@ -30,7 +30,10 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(ChooseLoginRegistrationActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+                finish();
+                return;
             }
         });
 
