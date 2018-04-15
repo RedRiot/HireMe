@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class NewLoginActivity extends AppCompatActivity {
-    private CardView mLogin;
+    private Button mLogin;
     private EditText mEmail, mPassword;
     private TextView mRegister;
     private FirebaseAuth auth;
@@ -41,7 +41,7 @@ public class NewLoginActivity extends AppCompatActivity {
                 }
             }
         };
-        mLogin = (CardView) findViewById(R.id.login);
+        mLogin = (Button) findViewById(R.id.login);
         mEmail = (EditText) findViewById(R.id.mail);
         mPassword = (EditText) findViewById(R.id.pass);
         mRegister = (TextView) findViewById(R.id.reg);

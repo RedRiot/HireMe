@@ -1,47 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EEEEEE"
     tools:context="com.example.tung.hireme.Activities.RegistrationActivity"
     android:orientation="vertical">
+
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="name"
-        android:id="@+id/name"/>
+        android:id="@+id/name"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/input"
+        android:drawableLeft="@drawable/ic_action_email"
+        android:ems="10"
+        android:hint="Full name"
+        android:inputType="textPersonName"
+        android:textSize="16dp" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/email"
+        android:layout_marginTop="59dp">
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Student" />
+            android:layout_width="500dp"
+            android:layout_height="30dp"
+            android:buttonTint="@color/common_google_signin_btn_text_dark"
+            android:text="Company"
+            android:textColor="#9E9E9E"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Company" />
+            android:layout_width="600dp"
+            android:layout_height="30dp"
+            android:buttonTint="@color/common_google_signin_btn_text_dark"
+            android:text="Student"
+            android:textColor="#9E9E9E"
+            android:textSize="18dp"
+            android:textStyle="bold" />
     </RadioGroup>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="email"
-        android:id="@+id/email"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="password"
-        android:inputType="textPassword"
-        android:id="@+id/password"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/register"/>
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/name"
+        android:layout_alignStart="@+id/name"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:drawableLeft="@drawable/ic_action_email"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textSize="16dp" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/email"
+        android:layout_alignStart="@+id/email"
+        android:layout_below="@+id/email"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input"
+        android:drawableLeft="@drawable/ic_action_pass"
+        android:ems="10"
+        android:hint="Passsword"
+        android:inputType="textPassword"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/radioGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:background="@drawable/button"
+        android:text="Register"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
