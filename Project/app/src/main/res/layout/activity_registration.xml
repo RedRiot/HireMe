@@ -84,7 +84,7 @@
         android:layout_height="50dp"
         android:layout_below="@+id/radioGroup"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="91dp"
         android:background="@drawable/button"
         android:text="Register"
         android:textSize="20dp"
