@@ -38,7 +38,6 @@ public class NewLoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(NewLoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-
                 }
             }
         };
@@ -46,7 +45,6 @@ public class NewLoginActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.mail);
         mPassword = (EditText) findViewById(R.id.pass);
         mRegister = (TextView) findViewById(R.id.reg);
-
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +59,6 @@ public class NewLoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
             }
         });
         mRegister.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +67,6 @@ public class NewLoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(NewLoginActivity.this, RegistrationActivity.class);
                 startActivity(intent);
                 finish();
-                return;
 
             }
         });
