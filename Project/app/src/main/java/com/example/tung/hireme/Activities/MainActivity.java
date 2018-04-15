@@ -34,14 +34,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         checkUserType();
-
         al = new ArrayList<>();
 
         arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
-
         flingContainer.setAdapter(arrayAdapter);
+
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
@@ -70,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
         // Optionally add an OnItemClickListener
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
@@ -86,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
     private String notUserType;
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-
     public void checkUserType() {
         DatabaseReference companyDb = FirebaseDatabase.getInstance().getReference()
                 .child("Users")
@@ -99,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
                     userType = "Company";
                     notUserType = "Student";
                     getOpppositeUsers();
-
                 }
             }
 
@@ -136,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     al.add(dataSnapshot.child("name").getValue().toString());
                     arrayAdapter.notifyDataSetChanged();
-
                 }
             }
 
