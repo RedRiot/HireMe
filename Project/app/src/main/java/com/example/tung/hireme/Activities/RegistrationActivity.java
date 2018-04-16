@@ -47,7 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
         };
         register = (Button) findViewById(R.id.register);
         mEmail = (EditText) findViewById(R.id.email);
-        mPassword = (EditText) findViewById(R.id.pass);
+        mPassword = (EditText) findViewById(R.id.password);
         mName = (EditText) findViewById(R.id.name);
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);

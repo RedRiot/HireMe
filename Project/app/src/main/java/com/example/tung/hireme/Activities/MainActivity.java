@@ -33,11 +33,19 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     List<Card> rowItems;
 
+    private DatabaseReference userDb;
+    private String currentUId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userDb = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mAuth = FirebaseAuth.getInstance();
+        currentUId = mAuth.getCurrentUser().getUid();
+
         checkUserType();
         rowItems = new ArrayList<Card>();
 
@@ -56,11 +64,27 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
+                Card obj = (Card) dataObject;
+                String userId = obj.getUserId();
+                userDb.child(notUserType)
+                        .child(userId)
+                        .child("connections")
+                        .child("no")
+                        .child(currentUId)
+                        .setValue(true);
                 Toast.makeText(MainActivity.this, "Left!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                Card obj = (Card) dataObject;
+                String userId = obj.getUserId();
+                userDb.child(notUserType)
+                        .child(userId)
+                        .child("connections")
+                        .child("yes")
+                        .child(currentUId)
+                        .setValue(true);
                 Toast.makeText(MainActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
 
@@ -134,8 +158,8 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 if (dataSnapshot.exists()) {
-                    //rowItems.add(dataSnapshot.child("name").getValue().toString());
-                    Card item = new Card(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), dataSnapshot.child("summary").getValue().toString());
+
+                    Card item = new Card(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString());
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }

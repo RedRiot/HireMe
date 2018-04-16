@@ -9,7 +9,7 @@ public class Card {
     private String name;
     private String summary;
 
-    public Card(String userId, String name, String summary) {
+    public Card(String userId, String name) {
         this.userId = userId;
         this.name = name;
         this.summary = "Hi, I am a junior software developer. Please Hire Me!";
