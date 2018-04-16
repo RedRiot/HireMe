@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.tung.hireme.R;
@@ -19,14 +20,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
+    private Card cards[];
+
+    private CardAdapter arrayAdapter;
     private int i;
 
     private FirebaseAuth mAuth;
+    ListView listView;
+    List<Card> rowItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         checkUserType();
-        al = new ArrayList<>();
+        rowItems = new ArrayList<Card>();
 
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.card_view, R.id.nameAgeTxt, al );
+        arrayAdapter = new CardAdapter(this, R.layout.card_view,rowItems);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
         flingContainer.setAdapter(arrayAdapter);
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void removeFirstObjectInAdapter() {
                 Log.d("LIST", "removed object!");
-                al.remove(0);
+                rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
@@ -129,7 +134,9 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 if (dataSnapshot.exists()) {
-                    al.add(dataSnapshot.child("name").getValue().toString());
+                    //rowItems.add(dataSnapshot.child("name").getValue().toString());
+                    Card item = new Card(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString(), dataSnapshot.child("summary").getValue().toString());
+                    rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
             }
