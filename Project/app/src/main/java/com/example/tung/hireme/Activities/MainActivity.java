@@ -194,4 +194,10 @@ public class MainActivity extends AppCompatActivity {
         finish();
 
     }
+    public void gotoSettings(View view) {
+        Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
 }
