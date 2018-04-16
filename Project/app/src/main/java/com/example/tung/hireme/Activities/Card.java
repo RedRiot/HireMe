@@ -12,7 +12,7 @@ public class Card {
     public Card(String userId, String name, String summary) {
         this.userId = userId;
         this.name = name;
-        this.summary = summary;
+        this.summary = "Hi, I am a junior software developer. Please Hire Me!";
     }
 
     public String getUserId() {
