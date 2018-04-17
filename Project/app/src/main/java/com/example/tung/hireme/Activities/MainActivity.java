@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userDb = FirebaseDatabase.getInstance().getReference().child("Users");
+
 
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
@@ -57,34 +57,19 @@ public class MainActivity extends AppCompatActivity {
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
-                Log.d("LIST", "removed object!");
                 rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                Card obj = (Card) dataObject;
-                String userId = obj.getUserId();
-                userDb.child(notUserType)
-                        .child(userId)
-                        .child("connections")
-                        .child("no")
-                        .child(currentUId)
-                        .setValue(true);
+                setUserDbs(dataObject,"connection");
                 Toast.makeText(MainActivity.this, "Left!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                Card obj = (Card) dataObject;
-                String userId = obj.getUserId();
-                userDb.child(notUserType)
-                        .child(userId)
-                        .child("connections")
-                        .child("yes")
-                        .child(currentUId)
-                        .setValue(true);
+             setUserDbs(dataObject,"connections");
                 Toast.makeText(MainActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
 
@@ -196,6 +181,19 @@ public class MainActivity extends AppCompatActivity {
         finish();
 
     }
+    public void setUserDbs(Object dataObject, String choice) {
+        userDb = FirebaseDatabase.getInstance().getReference().child("Users");
+        Card obj = (Card) dataObject;
+        String userId = obj.getUserId();
+        userDb.child(notUserType)
+                .child(userId)
+                .child("connections")
+                .child(choice)
+                .child(currentUId)
+                .setValue(true);
+
+    }
+
     public void gotoSettings(View view) {
         Intent intent = new Intent(MainActivity.this, SettingActivity.class);
         startActivity(intent);
