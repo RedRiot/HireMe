@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".Activities.MainActivity" />
-        <activity android:name=".Activities.NewLoginActivity" />
+        <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.RegistrationActivity" />
         <activity android:name=".Activities.SplashActivty">
             <intent-filter>

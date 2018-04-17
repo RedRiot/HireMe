@@ -3,9 +3,7 @@ package com.example.tung.hireme.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -190,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void logoutUser(View view) {
         mAuth.signOut();
-        Intent intent = new Intent(MainActivity.this, NewLoginActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
 

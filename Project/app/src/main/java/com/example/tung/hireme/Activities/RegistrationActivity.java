@@ -45,11 +45,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
             }
         };
+
         register = (Button) findViewById(R.id.register);
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
         mName = (EditText) findViewById(R.id.name);
-
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -58,11 +58,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 int selectId = radioGroup.getCheckedRadioButtonId();
 
                 final RadioButton radioButton = (RadioButton) findViewById(selectId);
-
-                if (radioButton.getText() == null) {
-                    return;
-                }
-
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
                 final String name = mName.getText().toString();
