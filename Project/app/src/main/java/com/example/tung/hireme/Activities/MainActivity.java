@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        userDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
@@ -63,13 +63,27 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                setUserDbs(dataObject,"connection");
+                Card obj = (Card) dataObject;
+                String userId = obj.getUserId();
+                userDb.child(notUserType)
+                        .child(userId)
+                        .child("connections")
+                        .child("no")
+                        .child(currentUId)
+                        .setValue(true);
                 Toast.makeText(MainActivity.this, "Left!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-             setUserDbs(dataObject,"connections");
+                Card obj = (Card) dataObject;
+                String userId = obj.getUserId();
+                userDb.child(notUserType)
+                        .child(userId)
+                        .child("connections")
+                        .child("yes")
+                        .child(currentUId)
+                        .setValue(true);
                 Toast.makeText(MainActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
 
@@ -179,18 +193,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, NewLoginActivity.class);
         startActivity(intent);
         finish();
-
-    }
-    public void setUserDbs(Object dataObject, String choice) {
-        userDb = FirebaseDatabase.getInstance().getReference().child("Users");
-        Card obj = (Card) dataObject;
-        String userId = obj.getUserId();
-        userDb.child(notUserType)
-                .child(userId)
-                .child("connections")
-                .child(choice)
-                .child(currentUId)
-                .setValue(true);
 
     }
 
