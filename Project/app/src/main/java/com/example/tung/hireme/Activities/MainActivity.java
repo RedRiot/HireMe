@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        // Optionally add an OnItemClickListener
+
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
