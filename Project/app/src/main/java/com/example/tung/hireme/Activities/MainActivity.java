@@ -158,8 +158,10 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 if (dataSnapshot.exists()) {
-
-                    Card item = new Card(dataSnapshot.getKey(), dataSnapshot.child("name").getValue().toString());
+                    Card item = new Card(dataSnapshot.getKey(),
+                            dataSnapshot.child("name").getValue().toString(),
+                            dataSnapshot.child("summary").getValue().toString(),
+                            dataSnapshot.child("profileImageUrl").getValue().toString());
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }

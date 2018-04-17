@@ -8,11 +8,21 @@ public class Card {
     private String userId;
     private String name;
     private String summary;
+    private String profileImageUrl;
 
-    public Card(String userId, String name) {
+    public Card(String userId, String name, String summary, String profileImageUrl) {
         this.userId = userId;
         this.name = name;
-        this.summary = "Hi, I am a junior software developer. Please Hire Me!";
+        this.summary = summary;
+        this.profileImageUrl = profileImageUrl;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
     public String getUserId() {

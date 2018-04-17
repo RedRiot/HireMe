@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.tung.hireme.R;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class CardAdapter extends ArrayAdapter<Card> {
         super(context, resourceId, cards);
     }
 
-    public View getView(int positon, View convertView, ViewGroup parent) {
-        Card cardItem = getItem(positon);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        Card cardItem = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_view, parent, false);
         }
@@ -34,7 +35,7 @@ public class CardAdapter extends ArrayAdapter<Card> {
 
         name.setText(cardItem.getName());
         summary.setText(cardItem.getSummary());
-        imageView.setImageResource(R.mipmap.ic_launcher);
+        Glide.with(getContext()).load(cardItem.getProfileImageUrl()).into(imageView);
 
         return convertView;
     }

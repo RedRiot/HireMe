@@ -56,19 +56,19 @@ public class SettingActivity extends AppCompatActivity {
         mSummmaryField = (EditText) findViewById(R.id.summaries);
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
 
+
         mConfirm = (Button) findViewById(R.id.confirm);
         mBack = (Button) findViewById(R.id.back);
 
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
         mCostumerDatabase = FirebaseDatabase.getInstance()
-
                 .getReference()
                 .child("Users")
                 .child(STUDENT)
                 .child(userId);
         getUserInfo();
-
+        
         mProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +81,9 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveUserInformation();
+                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         
