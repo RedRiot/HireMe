@@ -51,7 +51,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        String userType = getIntent().getExtras().getString("userType");
+        final String STUDENT = "Student";
         mNameField = (EditText) findViewById(R.id.names);
         mSummmaryField = (EditText) findViewById(R.id.summaries);
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
@@ -62,9 +62,10 @@ public class SettingActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
         mCostumerDatabase = FirebaseDatabase.getInstance()
+
                 .getReference()
                 .child("Users")
-                .child(userType)
+                .child(STUDENT)
                 .child(userId);
         getUserInfo();
 

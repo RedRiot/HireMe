@@ -196,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void gotoSettings(View view) {
         Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-        intent.putExtra("userType", userType);
         startActivity(intent);
         finish();
 
