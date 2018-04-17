@@ -51,6 +51,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+        String userType = getIntent().getExtras().getString("userType");
         mNameField = (EditText) findViewById(R.id.names);
         mSummmaryField = (EditText) findViewById(R.id.summaries);
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
@@ -63,7 +64,7 @@ public class SettingActivity extends AppCompatActivity {
         mCostumerDatabase = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("Users")
-                .child("Customers")
+                .child(userType)
                 .child(userId);
         getUserInfo();
 
@@ -79,6 +80,15 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveUserInformation();
+            }
+        });
+        
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -146,7 +156,7 @@ public class SettingActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Uri downLoadUrl = taskSnapshot.getDownloadUrl();
                     Map userInfo = new HashMap();
-                    userInfo.put("profileImageUrl", downLoadUrl);
+                    userInfo.put("profileImageUrl", downLoadUrl.toString());
                     mCostumerDatabase.updateChildren(userInfo);
                     finish();
                 }
