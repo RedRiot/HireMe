@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.tung.hireme.Activities.SettingActivity"
+    android:background="#EEEEEE"
     android:orientation="vertical"
     android:padding="20sp">
     <ImageView
@@ -36,13 +37,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/confirm"
-        android:text="confirm"/>
+        android:text="confirm"
+        android:background="@drawable/button"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/back"
-        android:text="back"/>
+        android:text="back"
+        android:background="@drawable/button"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
 
 
 
