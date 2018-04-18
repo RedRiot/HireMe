@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class CardActivity extends AppCompatActivity {
     private Card cards[];
 
     private CardAdapter arrayAdapter;
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference userDb;
     private String currentUId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         checkUserType();
         rowItems = new ArrayList<Card>();
 
-        arrayAdapter = new CardAdapter(this, R.layout.card_view,rowItems);
+        arrayAdapter = new CardAdapter(CardActivity.this, R.layout.card_view,rowItems);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
         flingContainer.setAdapter(arrayAdapter);
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         .child("no")
                         .child(currentUId)
                         .setValue(true);
-                Toast.makeText(MainActivity.this, "Left!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CardActivity.this, "Left!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         .child("yes")
                         .child(currentUId)
                         .setValue(true);
-                Toast.makeText(MainActivity.this, "Right!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CardActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                Toast.makeText(MainActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CardActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -188,14 +189,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void logoutUser(View view) {
         mAuth.signOut();
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(CardActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
 
     }
 
     public void gotoSettings(View view) {
-        Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+        Intent intent = new Intent(CardActivity.this, SettingActivity.class);
         startActivity(intent);
         finish();
 

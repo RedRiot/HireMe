@@ -3,9 +3,7 @@ package com.example.tung.hireme.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +29,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,7 +78,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveUserInformation();
-                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                Intent intent = new Intent(SettingActivity.this, CardActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -90,7 +87,7 @@ public class SettingActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                Intent intent = new Intent(SettingActivity.this,CardActivity.class);
                 startActivity(intent);
                 finish();
             }

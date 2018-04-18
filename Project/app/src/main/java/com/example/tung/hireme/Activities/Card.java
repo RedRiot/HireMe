@@ -1,5 +1,7 @@
 package com.example.tung.hireme.Activities;
 
+import android.app.Fragment;
+
 /**
  * Created by tung on 4/16/18.
  */
@@ -9,6 +11,9 @@ public class Card {
     private String name;
     private String summary;
     private String profileImageUrl;
+
+    public Card() {
+    }
 
     public Card(String userId, String name, String summary, String profileImageUrl) {
         this.userId = userId;
