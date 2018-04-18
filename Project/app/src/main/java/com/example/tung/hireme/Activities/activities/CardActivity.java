@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.tung.hireme.Activities.adapters.CardAdapter;
+import com.example.tung.hireme.Activities.fragments.company.SelectStudentFragment;
 import com.example.tung.hireme.Activities.models.Card;
 import com.example.tung.hireme.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -189,18 +190,8 @@ public class CardActivity extends AppCompatActivity {
         });
     }
 
-    public void logoutUser(View view) {
-        mAuth.signOut();
-        Intent intent = new Intent(CardActivity.this, LoginActivity.class);
+    public void goBackToFragment(View view) {
+        Intent intent = new Intent(CardActivity.this, CompanyActivity.class);
         startActivity(intent);
-        finish();
-
-    }
-
-    public void gotoSettings(View view) {
-        Intent intent = new Intent(CardActivity.this, SettingActivity.class);
-        startActivity(intent);
-        finish();
-
     }
 }

@@ -16,9 +16,11 @@ public class SettingsFragment extends Fragment {
     private Button logout;
     private FirebaseAuth mAuth;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.setting_fragment, container, false);
+        mAuth = FirebaseAuth.getInstance();
         logout = (Button) view.findViewById(R.id.logout_button);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

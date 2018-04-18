@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/logo_hireme"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Activities.fragments.CardFragment" />
+        <activity android:name=".Activities.activities.CardActivity" />
         <activity android:name=".Activities.activities.LoginActivity" />
         <activity android:name=".Activities.activities.RegistrationActivity" />
         <activity android:name=".Activities.activities.SplashActivty">
