@@ -19,8 +19,8 @@ public class CompanyActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Kalendars"));
-        tabLayout.addTab(tabLayout.newTab().setText("Accounts"));
+        tabLayout.addTab(tabLayout.newTab().setText("Select Student"));
+        tabLayout.addTab(tabLayout.newTab().setText("Saved Students"));
         tabLayout.addTab(tabLayout.newTab().setText("Settings"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -48,4 +48,3 @@ public class CompanyActivity extends AppCompatActivity {
         });
     }
 }
-
