@@ -1,4 +1,4 @@
-package com.example.tung.hireme.Activities;
+package com.example.tung.hireme.Activities.models;
 
 import android.app.Fragment;
 

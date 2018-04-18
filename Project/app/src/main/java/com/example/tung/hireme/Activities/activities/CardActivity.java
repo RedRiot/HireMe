@@ -1,4 +1,4 @@
-package com.example.tung.hireme.Activities;
+package com.example.tung.hireme.Activities.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.tung.hireme.Activities.adapters.CardAdapter;
+import com.example.tung.hireme.Activities.models.Card;
 import com.example.tung.hireme.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

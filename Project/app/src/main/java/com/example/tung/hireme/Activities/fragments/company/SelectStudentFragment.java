@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.tung.hireme.Activities.CardActivity;
+import com.example.tung.hireme.Activities.activities.CardActivity;
 import com.example.tung.hireme.R;
 
 public class SelectStudentFragment extends Fragment {

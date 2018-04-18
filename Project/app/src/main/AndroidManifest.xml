@@ -12,20 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".Activities.fragments.CardFragment" />
-        <activity android:name=".Activities.LoginActivity" />
-        <activity android:name=".Activities.RegistrationActivity" />
-        <activity android:name=".Activities.SplashActivty">
+        <activity android:name=".Activities.activities.LoginActivity" />
+        <activity android:name=".Activities.activities.RegistrationActivity" />
+        <activity android:name=".Activities.activities.SplashActivty">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.SettingActivity" />
+        <activity android:name=".Activities.activities.SettingActivity" />
         <activity
-            android:name=".Activities.StudentActivity"
+            android:name=".Activities.activities.StudentActivity"
             android:label="@string/title_activity_student"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Activities.activities.CompanyActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.tung.hireme.Activities;
+package com.example.tung.hireme.Activities.activities;
 
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;

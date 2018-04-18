@@ -1,4 +1,4 @@
-package com.example.tung.hireme.Activities;
+package com.example.tung.hireme.Activities.activities;
 
 import android.app.Activity;
 import android.content.Intent;
