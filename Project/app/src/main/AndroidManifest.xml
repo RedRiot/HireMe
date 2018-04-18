@@ -21,7 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.SettingActivity"></activity>
+        <activity android:name=".Activities.SettingActivity" />
+        <activity
+            android:name=".Activities.StudentActivity"
+            android:label="@string/title_activity_student"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>
