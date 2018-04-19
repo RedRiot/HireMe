@@ -45,7 +45,7 @@ public class StudentActivity extends AppCompatActivity {
 
         StudentAdapter studentAdapter = new StudentAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         mViewPager.setAdapter(studentAdapter);
-        
+
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

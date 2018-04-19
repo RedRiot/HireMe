@@ -50,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     Intent intent = new Intent(RegistrationActivity.this, CardActivity.class);
                     startActivity(intent);
                     finish();
-                } else {
+                } else if(user!= null && selectedType == 0){
                     Intent intent = new Intent(RegistrationActivity.this, StudentActivity.class);
                     startActivity(intent);
                     finish();
