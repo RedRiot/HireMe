@@ -52,9 +52,8 @@ public class EditProfileFragment extends Fragment {
         mNameField = (EditText) view.findViewById(R.id.names);
         mSummmaryField = (EditText) view.findViewById(R.id.summaries);
         mProfileImage = (ImageView) view.findViewById(R.id.profileImage);
-
-
         mConfirm = (Button) view.findViewById(R.id.confirm);
+        
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
         mCostumerDatabase = FirebaseDatabase.getInstance()
