@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tung.hireme.Activities.activities.StudentActivity;
@@ -74,9 +75,14 @@ public class EditProfileFragment extends Fragment {
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveUserInformation();
-                Intent intent = new Intent(getActivity(), StudentActivity.class);
-                startActivity(intent);
+                if (!mNameField.equals(null) && !mSummmaryField.equals(null)) {
+                    saveUserInformation();
+                    Intent intent = new Intent(getActivity(), StudentActivity.class);
+                    startActivity(intent);
+
+                } else {
+                    Toast.makeText(getContext(), "Fill out all the required field", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

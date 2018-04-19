@@ -64,28 +64,32 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int selectId = radioGroup.getCheckedRadioButtonId();
 
-        final RadioButton radioButton = (RadioButton) findViewById(selectId);
-        final String email = mEmail.getText().toString();
-        final String password = mPassword.getText().toString();
-        final String name = mName.getText().toString();
+                final RadioButton radioButton = (RadioButton) findViewById(selectId);
+                final String email = mEmail.getText().toString();
+                final String password = mPassword.getText().toString();
+                final String name = mName.getText().toString();
+                if (!email.equals(null) || !!password.equals(null) || radioButton.didTouchFocusSelect()) {
 
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this,
-                new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(RegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
-                        } else {
-                            String userId = auth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference()
-                                    .child("Users")
-                                    .child(radioButton.getText().toString())
-                                    .child(userId)
-                                    .child("name");
-                            currentUserDb.setValue(name);
-                        }
-                    }
-                });
+                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this,
+                            new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(RegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        String userId = auth.getCurrentUser().getUid();
+                                        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference()
+                                                .child("Users")
+                                                .child(radioButton.getText().toString())
+                                                .child(userId)
+                                                .child("name");
+                                        currentUserDb.setValue(name);
+                                    }
+                                }
+                            });
+                } else {
+                    Toast.makeText(RegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
