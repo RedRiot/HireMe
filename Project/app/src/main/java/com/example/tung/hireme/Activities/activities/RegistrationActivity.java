@@ -33,24 +33,31 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        register = (Button) findViewById(R.id.register);
+        mEmail = (EditText) findViewById(R.id.email);
+        mPassword = (EditText) findViewById(R.id.password);
+        mName = (EditText) findViewById(R.id.name);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
+
         auth = FirebaseAuth.getInstance();
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                int selectedType = radioGroup.getCheckedRadioButtonId();
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
+                if (user != null && selectedType == 1) {
                     Intent intent = new Intent(RegistrationActivity.this, CardActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(RegistrationActivity.this, StudentActivity.class);
                     startActivity(intent);
                     finish();
                 }
             }
         };
 
-        register = (Button) findViewById(R.id.register);
-        mEmail = (EditText) findViewById(R.id.email);
-        mPassword = (EditText) findViewById(R.id.password);
-        mName = (EditText) findViewById(R.id.name);
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +68,7 @@ public class RegistrationActivity extends AppCompatActivity {
         final String email = mEmail.getText().toString();
         final String password = mPassword.getText().toString();
         final String name = mName.getText().toString();
+
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this,
                 new OnCompleteListener<AuthResult>() {
                     @Override

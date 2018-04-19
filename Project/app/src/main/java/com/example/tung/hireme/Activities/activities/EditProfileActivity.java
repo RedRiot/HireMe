@@ -32,7 +32,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SettingActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity {
     private EditText mNameField, mSummmaryField;
     private Button mBack, mConfirm;
     private ImageView mProfileImage;
@@ -78,7 +78,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveUserInformation();
-                Intent intent = new Intent(SettingActivity.this, CardActivity.class);
+                Intent intent = new Intent(EditProfileActivity.this, CardActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -87,7 +87,7 @@ public class SettingActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingActivity.this,CardActivity.class);
+                Intent intent = new Intent(EditProfileActivity.this,CardActivity.class);
                 startActivity(intent);
                 finish();
             }
