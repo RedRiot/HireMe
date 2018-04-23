@@ -37,9 +37,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private Button mBack, mConfirm;
     private ImageView mProfileImage;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference mCostumerDatabase;
+    private DatabaseReference mUserDatabase;
 
-    private String userId, name, summary, profileImageUrl;
+    private String userId, name, summary, profileImageUrl, userType;
 
     private Uri resultUri;
 
@@ -59,10 +59,9 @@ public class EditProfileActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
-        mCostumerDatabase = FirebaseDatabase.getInstance()
+        mUserDatabase = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("Users")
-                .child(STUDENT)
                 .child(userId);
         getUserInfo();
         
@@ -96,7 +95,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void getUserInfo() {
-        mCostumerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
@@ -112,6 +111,10 @@ public class EditProfileActivity extends AppCompatActivity {
                     if (map.get("profileImageUrl") != null) {
                         profileImageUrl = map.get("profileImageUrl").toString();
                         Glide.with(getApplication()).load(profileImageUrl).into(mProfileImage);
+                    }
+                    if (map.get("type") != null) {
+                        userType = map.get("type").toString();
+
                     }
                 }
             }
@@ -130,7 +133,7 @@ public class EditProfileActivity extends AppCompatActivity {
         Map userInfo = new HashMap();
         userInfo.put("name", name);
         userInfo.put("summary", summary);
-        mCostumerDatabase.updateChildren(userInfo);
+        mUserDatabase.updateChildren(userInfo);
         if (resultUri != null) {
             StorageReference filePath = FirebaseStorage.getInstance().getReference()
                     .child("profileImages")
@@ -158,7 +161,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     Uri downLoadUrl = taskSnapshot.getDownloadUrl();
                     Map userInfo = new HashMap();
                     userInfo.put("profileImageUrl", downLoadUrl.toString());
-                    mCostumerDatabase.updateChildren(userInfo);
+                    mUserDatabase.updateChildren(userInfo);
                     finish();
                 }
             });

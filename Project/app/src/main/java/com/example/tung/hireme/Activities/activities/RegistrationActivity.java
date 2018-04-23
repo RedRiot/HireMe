@@ -20,6 +20,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegistrationActivity extends AppCompatActivity {
     private Button register;
     private EditText mEmail, mPassword, mName;
@@ -47,10 +50,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 int selectedType = radioGroup.getCheckedRadioButtonId();
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null && selectedType == 1) {
-                    Intent intent = new Intent(RegistrationActivity.this, CardActivity.class);
+                    Intent intent = new Intent(RegistrationActivity.this, CompanyActivity.class);
                     startActivity(intent);
                     finish();
-                } else if(user!= null && selectedType == 2){
+                } else if (user != null && selectedType == 2) {
                     Intent intent = new Intent(RegistrationActivity.this, StudentActivity.class);
                     startActivity(intent);
                     finish();
@@ -69,24 +72,25 @@ public class RegistrationActivity extends AppCompatActivity {
                 final String password = mPassword.getText().toString();
                 final String name = mName.getText().toString();
 
-                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this,
-                            new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(RegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        String userId = auth.getCurrentUser().getUid();
-                                        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference()
-                                                .child("Users")
-                                                .child(radioButton.getText().toString())
-                                                .child(userId)
-                                                .child("name");
-                                        currentUserDb.setValue(name);
-                                    }
+                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this,
+                        new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(RegistrationActivity.this, "Sign up Error", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    String userId = auth.getCurrentUser().getUid();
+                                    DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference()
+                                            .child("Users")
+                                            .child(userId);
+                                    Map userInfo = new HashMap<>();
+                                    userInfo.put("name", name);
+                                    userInfo.put("type", radioButton.getText().toString());
+                                    userInfo.put("profileImageUrl", "default");
+                                    currentUserDb.updateChildren(userInfo);
                                 }
-                            });
-
+                            }
+                        });
             }
         });
     }

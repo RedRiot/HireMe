@@ -49,7 +49,6 @@ public class EditProfileFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_setting, container, false);
-        final String STUDENT = "Student";
         mNameField = (EditText) view.findViewById(R.id.names);
         mSummmaryField = (EditText) view.findViewById(R.id.summaries);
         mProfileImage = (ImageView) view.findViewById(R.id.profileImage);
@@ -60,7 +59,6 @@ public class EditProfileFragment extends Fragment {
         mCostumerDatabase = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("Users")
-                .child(STUDENT)
                 .child(userId);
         getUserInfo();
 

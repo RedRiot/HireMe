@@ -10,9 +10,6 @@ import com.example.tung.hireme.Activities.fragments.company.SelectStudentFragmen
 import com.example.tung.hireme.Activities.fragments.student.EditProfileFragment;
 import com.example.tung.hireme.Activities.fragments.student.MyProfileFragment;
 
-/**
- * Created by tung on 4/18/18.
- */
 public class StudentAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 

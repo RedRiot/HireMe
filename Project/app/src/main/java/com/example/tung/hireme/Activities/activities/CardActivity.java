@@ -22,6 +22,7 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class CardActivity extends AppCompatActivity {
@@ -80,12 +81,11 @@ public class CardActivity extends AppCompatActivity {
             public void onRightCardExit(Object dataObject) {
                 Card obj = (Card) dataObject;
                 String userId = obj.getUserId();
-                userDb.child(notUserType)
-                        .child(userId)
-                        .child("connections")
-                        .child("yes")
-                        .child(currentUId)
-                        .setValue(true);
+                userDb.child(userId)
+                      .child("connections")
+                      .child("yes")
+                      .child(currentUId)
+                      .setValue(true);
                 Toast.makeText(CardActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
 
@@ -114,17 +114,28 @@ public class CardActivity extends AppCompatActivity {
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     public void checkUserType() {
-        DatabaseReference companyDb = FirebaseDatabase.getInstance().getReference()
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference()
                 .child("Users")
-                .child("Company");
-        companyDb.addChildEventListener(new ChildEventListener() {
+                .child(user.getUid());
+        userDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                 if (dataSnapshot.getKey().equals(user.getUid())) {
-                    userType = "Company";
-                    notUserType = "Student";
-                    getOpppositeUsers();
+                    if (dataSnapshot.exists()) {
+                        if (dataSnapshot.child("type") != null) {
+                            userType = dataSnapshot.child("type").getValue().toString();
+                            switch (userType) {
+                                case "Company":
+                                    notUserType = "Student";
+                                    break;
+                                case "Student":
+                                    notUserType = "Company";
+                                    break;
+                            }
+                            getOppositeUsers();
+                        }
+                    }
                 }
             }
 
@@ -150,11 +161,8 @@ public class CardActivity extends AppCompatActivity {
         });
     }
 
-    public void getOpppositeUsers() {
-        DatabaseReference studentDb = FirebaseDatabase.getInstance().getReference()
-                .child("Users")
-                .child(notUserType);
-        studentDb.addChildEventListener(new ChildEventListener() {
+    public void getOppositeUsers() {
+        userDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
