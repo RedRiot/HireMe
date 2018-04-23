@@ -119,7 +119,7 @@ public class CardActivity extends AppCompatActivity {
                 .child(user.getUid());
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getKey().equals(user.getUid())) {
                     if (dataSnapshot.exists()) {
                         if (dataSnapshot.child("type") != null) {
