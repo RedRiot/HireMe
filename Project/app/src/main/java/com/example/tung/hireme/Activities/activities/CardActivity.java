@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class CardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userDb = FirebaseDatabase.getInstance().getReference().child("Users");
+        userDb = FirebaseDatabase.getInstance().getReference().child("Users").child("type");
 
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
@@ -68,12 +69,11 @@ public class CardActivity extends AppCompatActivity {
             public void onLeftCardExit(Object dataObject) {
                 Card obj = (Card) dataObject;
                 String userId = obj.getUserId();
-                userDb.child(notUserType)
-                        .child(userId)
-                        .child("connections")
-                        .child("no")
-                        .child(currentUId)
-                        .setValue(true);
+                userDb.child(userId)
+                      .child("connections")
+                      .child("no")
+                      .child(currentUId)
+                      .setValue(true);
                 Toast.makeText(CardActivity.this, "Left!", Toast.LENGTH_SHORT).show();
             }
 
@@ -111,16 +111,15 @@ public class CardActivity extends AppCompatActivity {
 
     private String userType;
     private String notUserType;
-    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     public void checkUserType() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userDb = FirebaseDatabase.getInstance().getReference()
                 .child("Users")
                 .child(user.getUid());
-        userDb.addChildEventListener(new ChildEventListener() {
+        userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onChildAdded(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getKey().equals(user.getUid())) {
                     if (dataSnapshot.exists()) {
                         if (dataSnapshot.child("type") != null) {
@@ -140,21 +139,6 @@ public class CardActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
@@ -166,7 +150,7 @@ public class CardActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists() && dataSnapshot.child("type").getValue().equals(notUserType)) {
                     Card item = new Card(dataSnapshot.getKey(),
                             dataSnapshot.child("name").getValue().toString(),
                             dataSnapshot.child("summary").getValue().toString(),
