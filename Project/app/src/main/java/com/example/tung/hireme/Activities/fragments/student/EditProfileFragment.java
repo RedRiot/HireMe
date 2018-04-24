@@ -41,9 +41,9 @@ public class EditProfileFragment extends Fragment {
     private Button mConfirm;
     private ImageView mProfileImage;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference mCostumerDatabase;
+    private DatabaseReference mUserDatabase;
 
-    private String userId, name, summary, profileImageUrl;
+    private String userId, name, summary, profileImageUrl, userType;
 
     private Uri resultUri;
 
@@ -56,7 +56,7 @@ public class EditProfileFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
-        mCostumerDatabase = FirebaseDatabase.getInstance()
+        mUserDatabase = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("Users")
                 .child(userId);
@@ -89,7 +89,7 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void getUserInfo() {
-        mCostumerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
@@ -101,6 +101,9 @@ public class EditProfileFragment extends Fragment {
                     if (map.get("summary") != null) {
                         summary = map.get("summary").toString();
                         mSummmaryField.setText(summary);
+                    }
+                    if (map.get("userType") != null) {
+                        userType = map.get("userType").toString();
                     }
                     if (map.get("profileImageUrl") != null) {
                         profileImageUrl = map.get("profileImageUrl").toString();
@@ -123,7 +126,7 @@ public class EditProfileFragment extends Fragment {
         Map userInfo = new HashMap();
         userInfo.put("name", name);
         userInfo.put("summary", summary);
-        mCostumerDatabase.updateChildren(userInfo);
+        mUserDatabase.updateChildren(userInfo);
         if (resultUri != null) {
             StorageReference filePath = FirebaseStorage.getInstance().getReference()
                     .child("profileImages")
@@ -151,7 +154,7 @@ public class EditProfileFragment extends Fragment {
                     Uri downLoadUrl = taskSnapshot.getDownloadUrl();
                     Map userInfo = new HashMap();
                     userInfo.put("profileImageUrl", downLoadUrl.toString());
-                    mCostumerDatabase.updateChildren(userInfo);
+                    mUserDatabase.updateChildren(userInfo);
                     getActivity().finish();
                 }
             });

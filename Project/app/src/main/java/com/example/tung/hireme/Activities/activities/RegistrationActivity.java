@@ -49,15 +49,9 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 int selectedType = radioGroup.getCheckedRadioButtonId();
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null && selectedType == 1) {
-                    Intent intent = new Intent(RegistrationActivity.this, CompanyActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else if (user != null && selectedType == 2) {
-                    Intent intent = new Intent(RegistrationActivity.this, StudentActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+                Intent intent = new Intent(RegistrationActivity.this, CompanyActivity.class);
+                startActivity(intent);
+                finish();
             }
         };
 
@@ -87,7 +81,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     userInfo.put("name", name);
                                     userInfo.put("type", radioButton.getText().toString());
                                     userInfo.put("profileImageUrl", "default");
-                                    currentUserDb.setValue(name);
+                                    currentUserDb.updateChildren(userInfo);
                                 }
                             }
                         });

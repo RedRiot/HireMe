@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.tung.hireme.Activities.adapters.CardAdapter;
-import com.example.tung.hireme.Activities.fragments.company.SelectStudentFragment;
 import com.example.tung.hireme.Activities.models.Card;
 import com.example.tung.hireme.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,20 +21,16 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class CardActivity extends AppCompatActivity {
-    private Card cards[];
 
     private CardAdapter arrayAdapter;
-    private int i;
 
     private FirebaseAuth mAuth;
-    ListView listView;
     List<Card> rowItems;
 
-    private DatabaseReference userDb;
+    private DatabaseReference usersDb;
     private String currentUId;
 
 
@@ -45,7 +39,7 @@ public class CardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userDb = FirebaseDatabase.getInstance().getReference().child("Users").child("type");
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
@@ -69,7 +63,7 @@ public class CardActivity extends AppCompatActivity {
             public void onLeftCardExit(Object dataObject) {
                 Card obj = (Card) dataObject;
                 String userId = obj.getUserId();
-                userDb.child(userId)
+                usersDb.child(userId)
                       .child("connections")
                       .child("no")
                       .child(currentUId)
@@ -81,7 +75,7 @@ public class CardActivity extends AppCompatActivity {
             public void onRightCardExit(Object dataObject) {
                 Card obj = (Card) dataObject;
                 String userId = obj.getUserId();
-                userDb.child(userId)
+                usersDb.child(userId)
                       .child("connections")
                       .child("yes")
                       .child(currentUId)
@@ -114,15 +108,12 @@ public class CardActivity extends AppCompatActivity {
 
     public void checkUserType() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference()
-                .child("Users")
-                .child(user.getUid());
+        DatabaseReference userDb = usersDb.child(user.getUid());
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getKey().equals(user.getUid())) {
                     if (dataSnapshot.exists()) {
-                        if (dataSnapshot.child("type") != null) {
+                        if (dataSnapshot.child("type").getValue() != null) {
                             userType = dataSnapshot.child("type").getValue().toString();
                             switch (userType) {
                                 case "Company":
@@ -132,9 +123,7 @@ public class CardActivity extends AppCompatActivity {
                                     notUserType = "Company";
                                     break;
                             }
-                            getOppositeUsers();
-                        }
-                    }
+                            getOppositeUsers();}
                 }
             }
 
@@ -146,15 +135,18 @@ public class CardActivity extends AppCompatActivity {
     }
 
     public void getOppositeUsers() {
-        userDb.addChildEventListener(new ChildEventListener() {
+        usersDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                 if (dataSnapshot.exists() && dataSnapshot.child("type").getValue().equals(notUserType)) {
+                    String profileImageUrl = "default";
+                    if (!dataSnapshot.child("profileImageUrl").getValue().equals(profileImageUrl)){
+                        profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                    }
                     Card item = new Card(dataSnapshot.getKey(),
-                            dataSnapshot.child("name").getValue().toString(),
-                            dataSnapshot.child("summary").getValue().toString(),
-                            dataSnapshot.child("profileImageUrl").getValue().toString());
+                        dataSnapshot.child("name").getValue().toString(),
+                        dataSnapshot.child("summary").getValue().toString(),
+                        profileImageUrl);
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
