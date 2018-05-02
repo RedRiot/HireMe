@@ -23,10 +23,11 @@ public class StudentAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                MyProfileFragment tab1 = new MyProfileFragment();
+                EditProfileFragment tab1 = new EditProfileFragment();
                 return tab1;
             case 1:
-                EditProfileFragment tab2 = new EditProfileFragment();
+                MyProfileFragment tab2 = new MyProfileFragment();
+
                 return tab2;
             case 2:
                 SettingsFragment tab3 = new SettingsFragment();

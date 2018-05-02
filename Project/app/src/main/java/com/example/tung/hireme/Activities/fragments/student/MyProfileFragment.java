@@ -1,32 +1,42 @@
 package com.example.tung.hireme.Activities.fragments.student;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.tung.hireme.Activities.activities.CardActivity;
 import com.example.tung.hireme.Activities.adapters.CardAdapter;
 import com.example.tung.hireme.Activities.models.Card;
 import com.example.tung.hireme.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MyProfileFragment extends Fragment{
+public class MyProfileFragment extends Fragment {
     private Card card;
-    private List<Card> rowItem;
+    private ArrayList<Card> rowItem;
     private CardAdapter adapter;
     protected FirebaseAuth auth;
     private DatabaseReference userDB;
-    private String userId;
+    private String userId,nameProfile,summaryProfile,image;
+    private TextView name, summary;
+    private ImageView imageView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_myprofile, container, false);
@@ -38,24 +48,23 @@ public class MyProfileFragment extends Fragment{
                 .child("Users")
                 .child(userId);
 
-        getUserInfo();
 
-        adapter = new CardAdapter(getContext(), R.layout.card_view,rowItem);
+        final TextView name = (TextView) view.findViewById(R.id.namest);
 
-        return view;
-    }
-
-    private void getUserInfo() {
-        userDB.addListenerForSingleValueEvent(new ValueEventListener() {
+        final TextView summary = (TextView) view.findViewById(R.id.summaryst);
+        final ImageView imageView = (ImageView) view.findViewById(R.id.profileImageViewSt);
+        userDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
-                    Card card = new Card(dataSnapshot.getKey(),
-                            dataSnapshot.child("name").getValue().toString(),
-                            dataSnapshot.child("summary").getValue().toString(),
-                            dataSnapshot.child("profileImageUrl").getValue().toString());
-                    rowItem.add(card);
-                }
+                Log.d("asd", "onDataChange: " + dataSnapshot.child("name").getValue().toString());
+                Log.d("asd", "onDataChange: " + dataSnapshot.child("summary").getValue().toString());
+                Log.d("asd", dataSnapshot.child("profileImageUrl").getValue().toString());
+
+                name.setText(dataSnapshot.child("name").getValue().toString());
+                summary.setText(dataSnapshot.child("summary").getValue().toString());
+                Glide.with(getContext()).load(dataSnapshot.child("profileImageUrl").getValue().toString()).into(imageView);
+
+
             }
 
             @Override
@@ -63,5 +72,7 @@ public class MyProfileFragment extends Fragment{
 
             }
         });
+
+        return view;
     }
 }
