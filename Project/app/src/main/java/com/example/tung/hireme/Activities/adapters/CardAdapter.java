@@ -22,7 +22,7 @@ import java.util.List;
 public class CardAdapter extends ArrayAdapter<Card> {
     Context context;
 
-    public CardAdapter(CardActivity context, int resourceId, List<Card> cards) {
+    public CardAdapter(Context context, int resourceId, List<Card> cards) {
         super(context, resourceId, cards);
     }
 
