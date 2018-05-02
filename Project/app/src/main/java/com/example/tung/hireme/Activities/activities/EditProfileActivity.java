@@ -52,10 +52,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mNameField = (EditText) findViewById(R.id.names);
         mSummmaryField = (EditText) findViewById(R.id.summaries);
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
-
-
         mConfirm = (Button) findViewById(R.id.confirm);
-        mBack = (Button) findViewById(R.id.back);
 
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();

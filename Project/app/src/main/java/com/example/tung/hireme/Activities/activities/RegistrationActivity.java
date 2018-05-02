@@ -79,6 +79,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     userInfo.put("name", name);
                                     userInfo.put("type", radioButton.getText().toString());
                                     userInfo.put("profileImageUrl", "default");
+                                    userInfo.put("summary", " ");
                                     currentUserDb.updateChildren(userInfo);
 
                                     Intent intent = new Intent(RegistrationActivity.this, EmptyActivity.class);

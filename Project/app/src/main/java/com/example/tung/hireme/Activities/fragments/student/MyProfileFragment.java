@@ -56,15 +56,12 @@ public class MyProfileFragment extends Fragment {
         userDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("asd", "onDataChange: " + dataSnapshot.child("name").getValue().toString());
-                Log.d("asd", "onDataChange: " + dataSnapshot.child("summary").getValue().toString());
-                Log.d("asd", dataSnapshot.child("profileImageUrl").getValue().toString());
+                if (dataSnapshot.child("name").getValue().toString() != null && dataSnapshot.child("summary").getValue().toString() != null && dataSnapshot.child("profileImageUrl").getValue().toString() != null) {
+                    name.setText(dataSnapshot.child("name").getValue().toString());
+                    summary.setText(dataSnapshot.child("summary").getValue().toString());
+                    Glide.with(getContext()).load(dataSnapshot.child("profileImageUrl").getValue().toString()).into(imageView);
 
-                name.setText(dataSnapshot.child("name").getValue().toString());
-                summary.setText(dataSnapshot.child("summary").getValue().toString());
-                Glide.with(getContext()).load(dataSnapshot.child("profileImageUrl").getValue().toString()).into(imageView);
-
-
+                }
             }
 
             @Override

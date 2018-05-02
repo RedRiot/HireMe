@@ -38,8 +38,8 @@ public class StudentActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        tabLayout.addTab(tabLayout.newTab().setText("My Profile"));
         tabLayout.addTab(tabLayout.newTab().setText("Edit Profile"));
+        tabLayout.addTab(tabLayout.newTab().setText("My Profile"));
         tabLayout.addTab(tabLayout.newTab().setText("Settings"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
