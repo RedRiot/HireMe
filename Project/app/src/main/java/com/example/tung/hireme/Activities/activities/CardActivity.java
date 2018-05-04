@@ -79,6 +79,10 @@ public class CardActivity extends AppCompatActivity {
             @Override
             public void onRightCardExit(Object dataObject) {
                 Card obj = (Card) dataObject;
+                usersDb.child(currentUId)
+                        .child("saved")
+                        .child(obj.getName())
+                        .setValue("Write something");
                 savedStudents.add(obj.getName());
                 Toast.makeText(CardActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
