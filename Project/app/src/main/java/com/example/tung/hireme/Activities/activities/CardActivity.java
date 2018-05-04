@@ -1,7 +1,9 @@
 package com.example.tung.hireme.Activities.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -20,30 +22,34 @@ import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class CardActivity extends AppCompatActivity {
 
     private CardAdapter arrayAdapter;
-
     private FirebaseAuth mAuth;
-    List<Card> rowItems;
-
+    private List<Card> rowItems;
+    private Set<String> savedStudents;
     private DatabaseReference usersDb;
     private String currentUId;
+    private SharedPreferences sharepref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        savedStudents = new HashSet<>();
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
-
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
-
+         sharepref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sharepref.edit();
+        editor.putStringSet("list", savedStudents);
+        editor.commit();
         checkUserType();
         rowItems = new ArrayList<Card>();
 
@@ -74,12 +80,9 @@ public class CardActivity extends AppCompatActivity {
             @Override
             public void onRightCardExit(Object dataObject) {
                 Card obj = (Card) dataObject;
-                String userId = obj.getUserId();
-                usersDb.child(userId)
-                      .child("connections")
-                      .child("yes")
-                      .child(currentUId)
-                      .setValue(true);
+                savedStudents.add(obj.getName());
+
+
                 Toast.makeText(CardActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
 
