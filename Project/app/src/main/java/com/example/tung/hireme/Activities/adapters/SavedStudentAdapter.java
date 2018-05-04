@@ -1,9 +1,7 @@
 package com.example.tung.hireme.Activities.adapters;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.tung.hireme.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,22 +21,27 @@ public class SavedStudentAdapter extends RecyclerView.Adapter<SavedStudentAdapte
     private Context context;
     private int lastSelectedPosition;
 
-    public SavedStudentAdapter(Context context, List<String> names) {
-        this.names = names;
+    public SavedStudentAdapter(Context context) {
+        this.names = new ArrayList<>();
         this.context = context;
+    }
+
+    public void addNames(List<String> names) {
+        this.names.addAll(names);
+        notifyDataSetChanged();
     }
 
     @Override
     public SavedStudentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.saved_profile_fragment, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_item, parent, false);
         SavedStudentAdapter.ViewHolder viewHolder = new SavedStudentAdapter.ViewHolder(view);
         return viewHolder;
-
     }
 
     @Override
     public void onBindViewHolder(SavedStudentAdapter.ViewHolder holder, int position) {
         String name = names.get(position);
+        holder.name.setText(name);
 
     }
 
