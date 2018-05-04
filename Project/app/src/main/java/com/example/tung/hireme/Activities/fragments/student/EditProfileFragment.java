@@ -73,14 +73,8 @@ public class EditProfileFragment extends Fragment {
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!mNameField.equals(null) && !mSummmaryField.equals(null)) {
                     saveUserInformation();
-                    Intent intent = new Intent(getActivity(), StudentActivity.class);
-                    startActivity(intent);
 
-                } else {
-                    Toast.makeText(getContext(), "Fill out all the required field", Toast.LENGTH_SHORT).show();
-                }
 
             }
         });
