@@ -36,6 +36,7 @@ public class CardActivity extends AppCompatActivity {
     private DatabaseReference usersDb;
     private String currentUId;
     private SharedPreferences sharepref;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -46,10 +47,8 @@ public class CardActivity extends AppCompatActivity {
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
-         sharepref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = sharepref.edit();
-        editor.putStringSet("list", savedStudents);
-        editor.commit();
+        sharepref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = sharepref.edit();
         checkUserType();
         rowItems = new ArrayList<Card>();
 
@@ -81,8 +80,6 @@ public class CardActivity extends AppCompatActivity {
             public void onRightCardExit(Object dataObject) {
                 Card obj = (Card) dataObject;
                 savedStudents.add(obj.getName());
-
-
                 Toast.makeText(CardActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
 
@@ -103,6 +100,7 @@ public class CardActivity extends AppCompatActivity {
                 Toast.makeText(CardActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
             }
         });
+
 
     }
 
@@ -180,5 +178,7 @@ public class CardActivity extends AppCompatActivity {
     public void goBackToFragment(View view) {
         Intent intent = new Intent(CardActivity.this, CompanyActivity.class);
         startActivity(intent);
+        editor.putStringSet("list", savedStudents);
+        editor.apply();
     }
 }

@@ -1,6 +1,8 @@
 package com.example.tung.hireme.Activities.fragments.company;
 
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -15,11 +17,14 @@ import com.example.tung.hireme.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SavedProfilesFragment extends Fragment {
     private RecyclerView recyclerView;
     private SavedStudentAdapter adapter;
+
 
 
     @Override
@@ -33,7 +38,10 @@ public class SavedProfilesFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration =
                 new DividerItemDecoration(recyclerView.getContext(), recyclerLayoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-        List<String> names = new ArrayList<>(Arrays.asList("adasd", "asdasdasd", "fsdfr"));
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Set<String> studentNames =  prefs.getStringSet("list", null);
+        List<String> names = new ArrayList<>(studentNames);
         adapter.addNames(names);
         recyclerView.setAdapter(adapter);
 
