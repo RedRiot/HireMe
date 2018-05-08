@@ -41,8 +41,11 @@ public class SavedProfilesFragment extends Fragment {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         Set<String> studentNames =  prefs.getStringSet("list", null);
-        List<String> names = new ArrayList<>(studentNames);
-        adapter.addNames(names);
+        if (studentNames != null) {
+            List<String> names = new ArrayList<>(studentNames);
+
+            adapter.addNames(names);
+        }
         recyclerView.setAdapter(adapter);
 
         return view;
