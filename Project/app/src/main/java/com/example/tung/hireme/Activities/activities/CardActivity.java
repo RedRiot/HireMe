@@ -36,9 +36,6 @@ public class CardActivity extends AppCompatActivity {
     private List<Card> rowItems;
     private DatabaseReference usersDb;
     private String currentUId;
-    private SharedPreferences sharepref;
-    private SharedPreferences.Editor editor;
-    private Set<String> studentIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +43,7 @@ public class CardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
-        studentIds = new HashSet<>();
         currentUId = mAuth.getCurrentUser().getUid();
-        sharepref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        editor = sharepref.edit();
         checkUserType();
         rowItems = new ArrayList<Card>();
 
@@ -85,7 +79,6 @@ public class CardActivity extends AppCompatActivity {
                         .child(currentUId)
                         .child("saved")
                         .child(obj.getUserId());
-                studentIds.add(obj.getUserId());
                 Map userInfo = new HashMap<>();
                 userInfo.put("name", obj.getName());
                 userInfo.put("profileImageUrl", obj.getProfileImageUrl());
@@ -190,7 +183,5 @@ public class CardActivity extends AppCompatActivity {
     public void goBackToFragment(View view) {
         Intent intent = new Intent(CardActivity.this, CompanyActivity.class);
         startActivity(intent);
-        editor.putStringSet("studentId", studentIds);
-        editor.apply();
     }
 }
