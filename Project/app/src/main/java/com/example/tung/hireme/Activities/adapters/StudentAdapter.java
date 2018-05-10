@@ -5,8 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.tung.hireme.Activities.fragments.SettingsFragment;
-import com.example.tung.hireme.Activities.fragments.company.SavedProfilesFragment;
-import com.example.tung.hireme.Activities.fragments.company.SelectStudentFragment;
 import com.example.tung.hireme.Activities.fragments.student.EditProfileFragment;
 import com.example.tung.hireme.Activities.fragments.student.MyProfileFragment;
 

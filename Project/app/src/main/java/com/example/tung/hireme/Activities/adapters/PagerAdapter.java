@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.tung.hireme.Activities.fragments.SettingsFragment;
-import com.example.tung.hireme.Activities.fragments.company.SavedProfilesFragment;
 import com.example.tung.hireme.Activities.fragments.company.SelectStudentFragment;
 
 /**
@@ -27,11 +26,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 SelectStudentFragment tab1 = new SelectStudentFragment();
                 return tab1;
             case 1:
-                SavedProfilesFragment tab2 = new SavedProfilesFragment();
+                SettingsFragment tab2 = new SettingsFragment();
                 return tab2;
-            case 2:
-                SettingsFragment tab3 = new SettingsFragment();
-                return tab3;
             default:
                 return null;
         }
