@@ -48,11 +48,10 @@ public class MyProfileFragment extends Fragment {
                 .child("Users")
                 .child(userId);
 
-
         final TextView name = (TextView) view.findViewById(R.id.namest);
-
         final TextView summary = (TextView) view.findViewById(R.id.summaryst);
         final ImageView imageView = (ImageView) view.findViewById(R.id.profileImageViewSt);
+
         userDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -60,7 +59,6 @@ public class MyProfileFragment extends Fragment {
                     name.setText(dataSnapshot.child("name").getValue().toString());
                     summary.setText(dataSnapshot.child("summary").getValue().toString());
                     Glide.with(getContext()).load(dataSnapshot.child("profileImageUrl").getValue().toString()).into(imageView);
-
                 }
             }
 

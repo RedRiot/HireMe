@@ -1,33 +1,32 @@
 package com.example.tung.hireme.Activities.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
-
+import com.example.tung.hireme.Activities.models.Card;
 import com.example.tung.hireme.R;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by tung on 5/3/18.
- */
-
 public class SavedStudentAdapter extends RecyclerView.Adapter<SavedStudentAdapter.ViewHolder> {
-    private List<String> names;
+    private List<Card> students;
     private Context context;
-    private int lastSelectedPosition;
 
     public SavedStudentAdapter(Context context) {
-        this.names = new ArrayList<>();
+        this.students = new ArrayList<>();
         this.context = context;
     }
 
-    public void addNames(List<String> names) {
-        this.names.addAll(names);
+    public void addNames(List<Card> students) {
+        this.students.addAll(students);
         notifyDataSetChanged();
     }
 
@@ -40,22 +39,31 @@ public class SavedStudentAdapter extends RecyclerView.Adapter<SavedStudentAdapte
 
     @Override
     public void onBindViewHolder(SavedStudentAdapter.ViewHolder holder, int position) {
-        String name = names.get(position);
+        String name = students.get(position).getName();
+        String summary = students.get(position).getSummary();
+        Uri image =Uri.parse(students.get(position).getProfileImageUrl());
         holder.name.setText(name);
-
+        holder.summary.setText(summary);
+        holder.image.setImageURI(image);
     }
 
     @Override
     public int getItemCount() {
-        return names.size();
+        return students.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
+        private TextView summary;
+        private ImageView image;
+        //private RatingBar rating;
 
         public ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.savedstudentname);
+            summary = itemView.findViewById(R.id.savedstudentsummary);
+            image = itemView.findViewById(R.id.savedstudentimage);
+            //rating = itemView.findViewById(R.id.studentrating);
         }
     }
 }
