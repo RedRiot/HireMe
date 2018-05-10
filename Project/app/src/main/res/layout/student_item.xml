@@ -1,19 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="150dp"
+    android:background="#eee">
     <!--android:layout_margin="8dp">-->
 
     <TextView
         android:id="@+id/savedstudentname"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:text="TextView"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/savedstudentsummary"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/savedstudentname"
+        android:text="TextView" />
+
+    <RatingBar
+        android:id="@+id/studentrating"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/savedstudentsummary"
+        android:layout_alignStart="@+id/savedstudentsummary"
+        android:layout_below="@+id/savedstudentsummary" />
+
+    <ImageView
+        android:id="@+id/savedstudentimage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@+id/savedstudentname"
+        android:layout_toStartOf="@+id/savedstudentname"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
+
+</RelativeLayout>

@@ -22,8 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -32,23 +34,16 @@ public class CardActivity extends AppCompatActivity {
     private CardAdapter arrayAdapter;
     private FirebaseAuth mAuth;
     private List<Card> rowItems;
-    private Set<String> savedStudents;
     private DatabaseReference usersDb;
     private String currentUId;
-    private SharedPreferences sharepref;
-    private SharedPreferences.Editor editor;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        savedStudents = new HashSet<>();
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
-        sharepref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        editor = sharepref.edit();
         checkUserType();
         rowItems = new ArrayList<Card>();
 
@@ -78,12 +73,19 @@ public class CardActivity extends AppCompatActivity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
+
                 Card obj = (Card) dataObject;
-                usersDb.child(currentUId)
+                DatabaseReference savedDb = FirebaseDatabase.getInstance().getReference().child("Users")
+                        .child(currentUId)
                         .child("saved")
-                        .child(obj.getName())
-                        .setValue("Write something");
-                savedStudents.add(obj.getName());
+                        .child(obj.getUserId());
+                Map userInfo = new HashMap<>();
+                userInfo.put("name", obj.getName());
+                userInfo.put("profileImageUrl", obj.getProfileImageUrl());
+                userInfo.put("summary", obj.getSummary());
+                userInfo.put("note", "Write something");
+                savedDb.updateChildren(userInfo);
+
                 Toast.makeText(CardActivity.this, "Right!", Toast.LENGTH_SHORT).show();
             }
 
@@ -104,7 +106,6 @@ public class CardActivity extends AppCompatActivity {
                 Toast.makeText(CardActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
             }
         });
-
 
     }
 
@@ -182,7 +183,5 @@ public class CardActivity extends AppCompatActivity {
     public void goBackToFragment(View view) {
         Intent intent = new Intent(CardActivity.this, CompanyActivity.class);
         startActivity(intent);
-        editor.putStringSet("list", savedStudents);
-        editor.apply();
     }
 }
