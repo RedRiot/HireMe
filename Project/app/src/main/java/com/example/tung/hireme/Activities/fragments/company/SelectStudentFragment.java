@@ -36,8 +36,8 @@ public class SelectStudentFragment extends Fragment {
     private Button startButton;
     private RecyclerView recyclerView;
     private SavedStudentAdapter adapter;
-    private List<Card> students;
     private DatabaseReference userDb;
+    public List<Card> students;
     private FirebaseAuth mAuth;
     private String currentUId;
 
@@ -47,12 +47,14 @@ public class SelectStudentFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
         adapter = new SavedStudentAdapter(getActivity());
-        students = new ArrayList<>();
+        students = new ArrayList<Card>();
         userDb = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("Users")
                 .child(currentUId)
-                .child("saved");
+                .child("saved")
+                .child("DasybTOM8XVzhmGkuzQ1oNzC2cy1");
+        
         userDb.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -61,8 +63,8 @@ public class SelectStudentFragment extends Fragment {
                     String name = dataSnapshot.child("name").getValue().toString();
                     String summary = dataSnapshot.child("summary").getValue().toString();
                     String image = dataSnapshot.child("profileImageUrl").getValue().toString();
-                    Log.d("dgfgdfg", dataSnapshot.getKey());
                     Card cards = new Card(id, name, summary, image);
+                    Log.d("hello", cards.getSummary().toString());
                     students.add(cards);
                     adapter.notifyDataSetChanged();
                 }
@@ -80,8 +82,10 @@ public class SelectStudentFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration =
                 new DividerItemDecoration(recyclerView.getContext(), recyclerLayoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
+        Log.d("student", students.get(0).getName());
         adapter.addNames(students);
         recyclerView.setAdapter(adapter);
+
         startButton = (Button) view.findViewById(R.id.start);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
