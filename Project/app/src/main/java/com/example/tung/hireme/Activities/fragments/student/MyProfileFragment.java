@@ -29,14 +29,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MyProfileFragment extends Fragment {
-    private Card card;
-    private ArrayList<Card> rowItem;
-    private CardAdapter adapter;
     protected FirebaseAuth auth;
     private DatabaseReference userDB;
-    private String userId,nameProfile,summaryProfile,image;
-    private TextView name, summary;
-    private ImageView imageView;
+    private String userId;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_myprofile, container, false);
