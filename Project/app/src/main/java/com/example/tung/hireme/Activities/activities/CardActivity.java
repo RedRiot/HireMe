@@ -45,8 +45,6 @@ public class CardActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
         checkUserType();
-        rowItems = new ArrayList<Card>();
-
         arrayAdapter = new CardAdapter(CardActivity.this, R.layout.card_view,rowItems);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
@@ -115,6 +113,7 @@ public class CardActivity extends AppCompatActivity {
     public void checkUserType() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userDb = usersDb.child(user.getUid());
+        rowItems = new ArrayList<Card>();
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
