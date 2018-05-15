@@ -47,18 +47,17 @@ public class SelectStudentFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getCurrentUser().getUid();
         adapter = new SavedStudentAdapter(getActivity());
-        students = new ArrayList<Card>();
         userDb = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("Users")
                 .child(currentUId)
-                .child("saved")
-                .child("DasybTOM8XVzhmGkuzQ1oNzC2cy1");
-        
-        userDb.addValueEventListener (new ValueEventListener() {
+                .child("saved");
+
+        userDb.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists()) {
+                    students = new ArrayList<Card>();
                     String id = dataSnapshot.getKey();
                     String name = dataSnapshot.child("name").getValue().toString();
                     String summary = dataSnapshot.child("summary").getValue().toString();
@@ -68,6 +67,21 @@ public class SelectStudentFragment extends Fragment {
                     students.add(cards);
                     adapter.notifyDataSetChanged();
                 }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -82,7 +96,7 @@ public class SelectStudentFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration =
                 new DividerItemDecoration(recyclerView.getContext(), recyclerLayoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-        Log.d("student", students.get(0).getName());
+        //Log.d("student", students.get(0).getName());
         adapter.addNames(students);
         recyclerView.setAdapter(adapter);
 
